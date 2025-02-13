@@ -1,28 +1,23 @@
-import { useQuery } from "@tanstack/react-query";
-import { fetchSubscriptions } from "../api/data";
+import { useState } from "react";
+import ReadingPane from "../widgets/ReadingPane";
+import ReadsList from "../widgets/ReadsList";
+import SubscriptionList from "../widgets/SubscriptionList";
 
 export default function ReaderPage() {
-  const { isPending, isError, data, error } = useQuery({
-    queryKey: ["subscriptions"],
-    queryFn: fetchSubscriptions,
-  });
-
-  if (isPending) {
-    return <span>Loading...</span>;
-  }
-
-  if (isError) {
-    return <span>Error: {error.message}</span>;
-  }
+  const [currentSubscription, setCurrentSubscription] = useState(null);
+  const [currentRead, setCurrentRead] = useState(null);
 
   return (
     <>
-      <h1>Your feeds</h1>
-      <ul>
-        {data.data.map((subscription) => (
-          <li key={subscription.feed.url}>{subscription.feed.name}</li>
-        ))}
-      </ul>
+      <SubscriptionList
+        currentSubscription={currentSubscription}
+        setCurrentSubscription={setCurrentSubscription}
+      />
+      <ReadsList
+        currentSubscription={currentSubscription}
+        setCurrentRead={setCurrentRead}
+      />
+      <ReadingPane currentRead={currentRead} />
     </>
   );
 }
