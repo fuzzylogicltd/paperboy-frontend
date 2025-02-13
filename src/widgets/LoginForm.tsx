@@ -42,7 +42,6 @@ export default function LoginForm() {
       navigate("/");
     },
     onError: (res) => {
-      //   console.log({ response });
       setLoginMessage(`Error logging in: ${res.response.statusText}`);
     },
   });

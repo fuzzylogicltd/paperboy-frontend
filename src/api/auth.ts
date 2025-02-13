@@ -1,6 +1,6 @@
 import axios from "axios";
 import { GenericResponse, ILoginResponse } from "./types.ts";
-import { LoginInput } from "../widgets/login-form.tsx";
+import { LoginInput } from "../widgets/LoginForm.tsx";
 import { API_URL } from "../env.ts";
 
 export const authApi = axios.create({
