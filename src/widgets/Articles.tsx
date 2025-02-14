@@ -1,6 +1,8 @@
 import useGetArticles from "../hooks/useGetArticles";
 
-export default function Articles({ subscriptionId, setArticleId }) {
+import styles from "./Articles.module.css";
+
+export default function Articles({ subscriptionId, articleId, setArticleId }) {
   const { isPending, isError, data, error } = useGetArticles(subscriptionId);
 
   if (isPending) {
@@ -8,7 +10,7 @@ export default function Articles({ subscriptionId, setArticleId }) {
   }
 
   if (isError) {
-    return <span>Error: {error.message}</span>;
+    return <span>Error: {error?.message}</span>;
   }
 
   const handleArticleClick = (articleId: number) => {
@@ -19,13 +21,14 @@ export default function Articles({ subscriptionId, setArticleId }) {
     <div className="article-list">
       <ul>
         {data &&
-          data.data.map((article) => {
+          data.map((read) => {
             return (
               <li
-                key={article.article.id}
-                onClick={() => handleArticleClick(article.article.id)}
+                key={read.article.id}
+                onClick={() => handleArticleClick(read.article.id)}
+                className={articleId === read.article.id ? styles.selected : ""}
               >
-                {article.article.title}
+                {decodeURIComponent(read.article.title)}
               </li>
             );
           })}

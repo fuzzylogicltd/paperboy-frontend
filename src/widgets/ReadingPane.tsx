@@ -8,13 +8,13 @@ export default function ReadingPane({ articleId }) {
   }
 
   if (isError) {
-    return <span>Error: {error.message}</span>;
+    return <span>Error: {error?.message}</span>;
   }
 
   return (
     <div className="article-list">
-      <h3>{data.data.article.title}</h3>
-      <div dangerouslySetInnerHTML={{ __html: data.data.article.body }} />
+      <h3>{data.article.title}</h3>
+      <div dangerouslySetInnerHTML={{ __html: data.article.body }} />
     </div>
   );
 }

@@ -1,5 +1,7 @@
 import useGetSubscriptions from "../hooks/useGetSubscriptions";
 
+import styles from "./SubscriptionList.module.css";
+
 export default function SubscriptionList({
   subscriptionId,
   setSubscriptionId,
@@ -12,7 +14,7 @@ export default function SubscriptionList({
   }
 
   if (isError) {
-    return <span>Error: {error.message}</span>;
+    return <span>Error: {error?.message}</span>;
   }
 
   const handleSubscriptionClick = (feedId: number): void => {
@@ -23,10 +25,13 @@ export default function SubscriptionList({
     <div className="subs-list">
       <h2>Your feeds</h2>
       <ul>
-        {data.data.map((subscription) => (
+        {data.map((subscription) => (
           <li
             key={subscription.feed.id}
             onClick={() => handleSubscriptionClick(subscription.feed.id)}
+            className={
+              subscriptionId === subscription.feed.id ? styles.selected : ""
+            }
           >
             {subscription.customFeedName ?? subscription.feed.name}
           </li>

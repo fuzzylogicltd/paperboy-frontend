@@ -19,6 +19,7 @@ export default function ReaderPage() {
       />
       <Articles
         subscriptionId={currentSubscriptionId}
+        articleId={currentArticleId}
         setArticleId={setCurrentArticleId}
       />
       <ReadingPane articleId={currentArticleId} />
