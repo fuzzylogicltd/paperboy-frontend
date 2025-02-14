@@ -1,23 +1,27 @@
 import { useState } from "react";
 import ReadingPane from "../widgets/ReadingPane";
-import ReadsList from "../widgets/ReadsList";
+import Articles from "../widgets/Articles";
 import SubscriptionList from "../widgets/SubscriptionList";
 
+import styles from "./Reader.module.css";
+
 export default function ReaderPage() {
-  const [currentSubscription, setCurrentSubscription] = useState(null);
-  const [currentRead, setCurrentRead] = useState(null);
+  const [currentSubscriptionId, setCurrentSubscriptionId] = useState(null);
+  const [currentArticleId, setCurrentArticleId] = useState(null);
+
+  console.log({ currentSubscriptionId }, { currentArticleId });
 
   return (
-    <>
+    <div className={styles.reader}>
       <SubscriptionList
-        currentSubscription={currentSubscription}
-        setCurrentSubscription={setCurrentSubscription}
+        subscriptionId={currentSubscriptionId}
+        setSubscriptionId={setCurrentSubscriptionId}
       />
-      <ReadsList
-        currentSubscription={currentSubscription}
-        setCurrentRead={setCurrentRead}
+      <Articles
+        subscriptionId={currentSubscriptionId}
+        setArticleId={setCurrentArticleId}
       />
-      <ReadingPane currentRead={currentRead} />
-    </>
+      <ReadingPane articleId={currentArticleId} />
+    </div>
   );
 }

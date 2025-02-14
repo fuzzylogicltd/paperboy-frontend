@@ -1,14 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
-import { fetchSubscriptions } from "../api/data";
+import useGetSubscriptions from "../hooks/useGetSubscriptions";
 
-export default function SubscriptionList(
-  currentSubscription,
-  setCurrentSubscription
-) {
-  const { isPending, isError, data, error } = useQuery({
-    queryKey: ["subscriptions"],
-    queryFn: fetchSubscriptions,
-  });
+export default function SubscriptionList({
+  subscriptionId,
+  setSubscriptionId,
+}) {
+  const { isPending, isError, data, error } =
+    useGetSubscriptions(subscriptionId);
 
   if (isPending) {
     return <span>Loading...</span>;
@@ -18,20 +15,23 @@ export default function SubscriptionList(
     return <span>Error: {error.message}</span>;
   }
 
-  const handleSubscriptionClick = (e) => {
-    setCurrentSubscription;
+  const handleSubscriptionClick = (feedId: number): void => {
+    setSubscriptionId(feedId);
   };
 
   return (
-    <>
-      <h1>Your feeds</h1>
+    <div className="subs-list">
+      <h2>Your feeds</h2>
       <ul>
         {data.data.map((subscription) => (
-          <li key={subscription.feed.url} onClick={handleSubscriptionClick}>
-            {subscription.feed.name}
+          <li
+            key={subscription.feed.id}
+            onClick={() => handleSubscriptionClick(subscription.feed.id)}
+          >
+            {subscription.customFeedName ?? subscription.feed.name}
           </li>
         ))}
       </ul>
-    </>
+    </div>
   );
 }
