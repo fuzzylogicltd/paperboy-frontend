@@ -12,7 +12,7 @@ export const fetchSubscriptions = async () => {
   ] = `Bearer ${localStorage.getItem("token")}`;
 
   const response = await dataApi.get("/api/subscriptions");
-  return response.data;
+  return response.data.data;
 };
 
 export const fetchArticles = async (feedId: number) => {
@@ -42,5 +42,5 @@ export const fetchArticle = async (articleId: number) => {
 
   const response = await dataApi.get(`/api/articles/${articleId}`);
 
-  return response.data;
+  return response.data.data;
 };
