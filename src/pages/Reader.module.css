@@ -1,0 +1,20 @@
+.reader {
+  width: 100%;
+  display: flex;
+}
+
+/* TODO: remove all these styles below since they leak all over */
+
+.reader div {
+  border-right: 1px solid #666;
+}
+
+.reader ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.reader li {
+  border-bottom: 1px solid #aaa;
+  padding: 1rem;
+}
