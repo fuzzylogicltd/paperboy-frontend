@@ -18,8 +18,8 @@ export default function Articles({ subscriptionId, articleId, setArticleId }) {
   };
 
   return (
-    <div className="article-list">
-      <ul>
+    <div className={styles.articles}>
+      <ul role="list">
         {data &&
           data.map((read) => {
             return (

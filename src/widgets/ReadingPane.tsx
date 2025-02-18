@@ -1,5 +1,7 @@
 import useGetArticle from "../hooks/useGetArticle";
 
+import styles from "./ReadingPane.module.css";
+
 export default function ReadingPane({ articleId }) {
   const { isPending, isError, data, error } = useGetArticle(articleId);
 
@@ -12,9 +14,11 @@ export default function ReadingPane({ articleId }) {
   }
 
   return (
-    <div className="article-list">
-      <h3>{data.article.title}</h3>
-      <div dangerouslySetInnerHTML={{ __html: data.article.body }} />
+    <div className={styles.readingPane}>
+      <div className={styles.wrapper}>
+        <h3>{data.article.title}</h3>
+        <div dangerouslySetInnerHTML={{ __html: data.article.body }} />
+      </div>
     </div>
   );
 }

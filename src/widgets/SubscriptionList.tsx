@@ -22,9 +22,8 @@ export default function SubscriptionList({
   };
 
   return (
-    <div className="subs-list">
-      <h2>Your feeds</h2>
-      <ul>
+    <div className={styles.subscriptions}>
+      <ul role="list">
         {data.map((subscription) => (
           <li
             key={subscription.feed.id}

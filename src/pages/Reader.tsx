@@ -13,15 +13,17 @@ export default function ReaderPage() {
 
   return (
     <div className={styles.reader}>
-      <SubscriptionList
-        subscriptionId={currentSubscriptionId}
-        setSubscriptionId={setCurrentSubscriptionId}
-      />
-      <Articles
-        subscriptionId={currentSubscriptionId}
-        articleId={currentArticleId}
-        setArticleId={setCurrentArticleId}
-      />
+      <div className={styles.navigationPanes}>
+        <SubscriptionList
+          subscriptionId={currentSubscriptionId}
+          setSubscriptionId={setCurrentSubscriptionId}
+        />
+        <Articles
+          subscriptionId={currentSubscriptionId}
+          articleId={currentArticleId}
+          setArticleId={setCurrentArticleId}
+        />
+      </div>
       <ReadingPane articleId={currentArticleId} />
     </div>
   );
