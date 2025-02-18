@@ -31,7 +31,7 @@ export const fetchArticles = async (feedId: number) => {
 
   const response = await dataApi.get(fetchUrl);
 
-  return response.data;
+  return response.data.data;
 };
 
 export const fetchArticle = async (articleId: number) => {
