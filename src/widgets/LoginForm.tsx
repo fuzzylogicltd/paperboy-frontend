@@ -1,34 +1,26 @@
 import { object, string, TypeOf } from "zod";
-import { useForm, SubmitHandler } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { loginUser } from "../api/auth";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { Form } from "radix-ui";
 
-const loginSchema = object({
-  email: string()
-    .min(1, "Email address is required")
-    .email("Email Address is invalid"),
-  password: string()
-    .min(1, "Password is required")
-    .min(8, "Password must be more than 8 characters")
-    .max(32, "Password must be less than 32 characters"),
-});
+import TextField from "./forms/TextField";
 
-// TODO
-// - Improve form validation
-//
-
-export type LoginInput = TypeOf<typeof loginSchema>;
+import styles from "./LoginForm.module.css";
 
 export default function LoginForm() {
   const [loginMessage, setLoginMessage] = useState("");
 
   const navigate = useNavigate();
 
-  const { register, handleSubmit } = useForm<LoginInput>();
-
-  const handleFormSubmit: SubmitHandler<LoginInput> = (values) => {
+  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const values = {
+      email: formData.get("email") as string,
+      password: formData.get("password") as string,
+    };
     mutation.mutate(values);
   };
 
@@ -49,22 +41,27 @@ export default function LoginForm() {
   return (
     <>
       {loginMessage && <h2>{loginMessage}</h2>}
-      <form onSubmit={handleSubmit(handleFormSubmit)}>
-        <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          id="email"
-          {...register("email", { required: true })}
+      <Form.Root onSubmit={handleFormSubmit} className={styles.loginForm}>
+        <TextField
+          fieldName="email"
+          labelText="Email"
+          isRequired={true}
+          fieldType="email"
         />
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          {...register("password", { required: true })}
+
+        <TextField
+          fieldName="password"
+          labelText="Password"
+          isRequired={true}
+          fieldType="password"
         />
-        <hr />
-        <input type="submit" value="Log in" />
-      </form>
+
+        <Form.Submit asChild>
+          <button className="button" style={{ marginTop: 10 }}>
+            Log in
+          </button>
+        </Form.Submit>
+      </Form.Root>
     </>
   );
 }

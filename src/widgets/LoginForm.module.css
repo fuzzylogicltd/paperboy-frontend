@@ -1,0 +1,9 @@
+h1 {
+  margin-block: 1rem;
+}
+
+.loginForm {
+  & > div {
+    margin-block: 1rem;
+  }
+}
