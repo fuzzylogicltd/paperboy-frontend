@@ -74,6 +74,30 @@
   @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 
   body {
+    --clr-body: #f5f2eb;
+    --clr-accent: hsl(225, 41%, 35.9%);
+
     font-family: "Roboto", sans-serif;
+    background-color: var(--clr-body);
+  }
+}
+
+@layer utils {
+  .button {
+    display: block;
+    width: fit-content;
+    margin-inline: auto;
+    padding: 0.5rem 4rem;
+    background-color: var(--clr-accent);
+    color: #fff;
+    text-decoration: none;
+    font-weight: normal;
+    border-radius: 3px;
+    transition: padding ease-in-out 0.1s;
+    border: 0;
+
+    &:hover {
+      padding-inline: 5rem;
+    }
   }
 }
