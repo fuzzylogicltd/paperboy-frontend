@@ -1,4 +1,4 @@
-import LoginForm from "../widgets/LoginForm";
+import LoginForm from "../widgets/SigninForm";
 
 import styles from "./Login.module.css";
 

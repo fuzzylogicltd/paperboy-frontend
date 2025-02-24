@@ -13,6 +13,9 @@ export default function SplashPage() {
             Sign in
           </Link>
         </p>
+        <p>
+          Or <Link to="/signup">Sign up</Link>
+        </p>
       </div>
     </div>
   );

@@ -7,8 +7,6 @@ import { Form } from "radix-ui";
 
 import TextField from "./forms/TextField";
 
-import styles from "./LoginForm.module.css";
-
 export default function LoginForm() {
   const [loginMessage, setLoginMessage] = useState("");
 
@@ -41,7 +39,7 @@ export default function LoginForm() {
   return (
     <>
       {loginMessage && <h2>{loginMessage}</h2>}
-      <Form.Root onSubmit={handleFormSubmit} className={styles.loginForm}>
+      <Form.Root onSubmit={handleFormSubmit}>
         <TextField
           fieldName="email"
           labelText="Email"
@@ -58,7 +56,7 @@ export default function LoginForm() {
 
         <Form.Submit asChild>
           <button className="button" style={{ marginTop: 10 }}>
-            Log in
+            Sign in
           </button>
         </Form.Submit>
       </Form.Root>

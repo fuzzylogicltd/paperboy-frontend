@@ -1,6 +1,6 @@
 import { Route, BrowserRouter, Routes } from "react-router-dom";
 import "./App.css";
-import LoginPage from "./pages/Login";
+import UserForm from "./pages/UserForm";
 import HomePage from "./pages/Home";
 
 function App() {
@@ -8,7 +8,8 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/signin" element={<LoginPage />} />
+          <Route path="/signin" element={<UserForm formType="signin" />} />
+          <Route path="/signup" element={<UserForm formType="signup" />} />
           <Route path="/" element={<HomePage />} />
           {/* <Route path="*" /> TODO: make 404 */}
         </Routes>
