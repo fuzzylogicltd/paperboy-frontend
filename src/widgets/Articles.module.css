@@ -5,14 +5,30 @@
   height: 100%;
   box-sizing: border-box;
   scroll-snap-align: start;
+  overflow-y: auto;
 
   @media (width > 1100px) {
-    width: 50%;
-    max-width: 300px;
+    width: 60%;
+    max-width: 350px;
     min-width: 200px;
+  }
+
+  ul {
+    width: 100%;
+    li {
+      padding: 0.5rem 1rem;
+      border-bottom: 1px solid #ccc;
+    }
   }
 
   .selected {
     background-color: orange;
+  }
+
+  .articleImage {
+    height: 150px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: var(--radius-md);
   }
 }

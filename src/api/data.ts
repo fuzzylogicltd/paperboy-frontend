@@ -15,7 +15,7 @@ export const fetchSubscriptions = async () => {
   return response.data.data;
 };
 
-export const fetchArticles = async (feedId: number) => {
+export const fetchArticles = async (feedId: number, pageCursor: number) => {
   dataApi.defaults.headers.common["Content-Type"] = "application/json";
   dataApi.defaults.headers.common[
     "Authorization"
@@ -29,9 +29,13 @@ export const fetchArticles = async (feedId: number) => {
     fetchUrl = "/api/articles";
   }
 
+  if (pageCursor) {
+    fetchUrl = fetchUrl + `?pageCursor=${pageCursor}`;
+  }
+
   const response = await dataApi.get(fetchUrl);
 
-  return response.data.data;
+  return response.data;
 };
 
 export const fetchArticle = async (articleId: number) => {

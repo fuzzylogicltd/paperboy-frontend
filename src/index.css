@@ -77,6 +77,10 @@
     --clr-body: #f5f2eb;
     --clr-accent: hsl(225, 41%, 35.9%);
 
+    --radius-sm: 3px;
+    --radius-md: 5px;
+    --radius-lg: 10px;
+
     font-family: "Roboto", sans-serif;
     background-color: var(--clr-body);
   }
@@ -99,5 +103,13 @@
     &:hover {
       padding-inline: 5rem;
     }
+  }
+
+  .shortDescription {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* number of lines to show */
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
 }
