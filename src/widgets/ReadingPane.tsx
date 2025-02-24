@@ -1,4 +1,5 @@
 import useGetArticle from "../hooks/useGetArticle";
+import UserMenu from "./UserMenu";
 
 import styles from "./ReadingPane.module.css";
 
@@ -17,6 +18,7 @@ export default function ReadingPane({ articleId }) {
 
   return (
     <div className={styles.readingPane}>
+      <UserMenu />
       <div className={styles.wrapper}>
         <h2>{article.title}</h2>
         <h3>

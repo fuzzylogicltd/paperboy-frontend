@@ -76,6 +76,8 @@
   body {
     --clr-body: #f5f2eb;
     --clr-accent: hsl(225, 41%, 35.9%);
+    --clr-gray400: #dfdcd6;
+    --clr-gray800: #666;
 
     --radius-sm: 3px;
     --radius-md: 5px;
