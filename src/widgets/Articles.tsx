@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import moment from "moment";
+import convertToRelativeTime from "../utils/relativeTime";
 import useGetArticles from "../hooks/useGetArticles";
 
 import styles from "./Articles.module.css";
@@ -111,7 +111,7 @@ export default function Articles({ subscriptionId, articleId, setArticleId }) {
                   <img src={article.imageUrl} className={styles.articleImage} />
                 )}
                 <div className={styles.articleAge}>
-                  {moment(article.datePublished).fromNow()}
+                  {convertToRelativeTime(article.datePublished)}
                 </div>
               </li>
             );
