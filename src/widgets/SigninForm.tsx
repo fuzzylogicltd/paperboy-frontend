@@ -32,7 +32,11 @@ export default function LoginForm() {
       navigate("/");
     },
     onError: (res) => {
-      setLoginMessage(`Error logging in: ${res.response.statusText}`);
+      setLoginMessage(
+        `Error logging in: ${
+          res.response.data.message ?? res.response.statusText
+        }`
+      );
     },
   });
 

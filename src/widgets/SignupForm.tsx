@@ -37,7 +37,12 @@ export default function LoginForm() {
       navigate("/signin");
     },
     onError: (res) => {
-      setSignupMessage(`Error signing up: ${res.response.statusText}`);
+      console.log({ res });
+      setSignupMessage(
+        `Error signing up: ${
+          res.response.data.message ?? res.response.statusText
+        }`
+      );
     },
   });
 
