@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import moment from "moment";
 import useGetArticles from "../hooks/useGetArticles";
 
 import styles from "./Articles.module.css";
@@ -109,6 +110,9 @@ export default function Articles({ subscriptionId, articleId, setArticleId }) {
                 {article.imageUrl && (
                   <img src={article.imageUrl} className={styles.articleImage} />
                 )}
+                <div className={styles.articleAge}>
+                  {moment(article.datePublished).fromNow()}
+                </div>
               </li>
             );
           })}
