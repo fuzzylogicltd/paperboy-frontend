@@ -1,4 +1,5 @@
 import useGetSubscriptions from "../hooks/useGetSubscriptions";
+import AddSubscription from "./AddSubscription";
 
 import styles from "./SubscriptionList.module.css";
 
@@ -36,6 +37,9 @@ export default function SubscriptionList({
           </li>
         ))}
       </ul>
+      <div className={styles.addSubscription}>
+        <AddSubscription />
+      </div>
     </div>
   );
 }

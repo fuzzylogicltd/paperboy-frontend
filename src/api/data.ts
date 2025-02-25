@@ -15,6 +15,16 @@ export const fetchSubscriptions = async () => {
   return response.data.data;
 };
 
+export const addSubscription = async (feed) => {
+  dataApi.defaults.headers.common["Content-Type"] = "application/json";
+  dataApi.defaults.headers.common[
+    "Authorization"
+  ] = `Bearer ${localStorage.getItem("token")}`;
+
+  const response = await dataApi.post("/api/subscriptions", feed);
+  return response.data.data;
+};
+
 export const fetchArticles = async (feedId: number, pageCursor: number) => {
   dataApi.defaults.headers.common["Content-Type"] = "application/json";
   dataApi.defaults.headers.common[
