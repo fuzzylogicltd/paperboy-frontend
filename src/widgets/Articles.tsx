@@ -104,7 +104,7 @@ export default function Articles({ subscriptionId, articleId, setArticleId }) {
               >
                 <h3>{article.title}</h3>
                 <h4>{article.feed.name}</h4>
-                <p className="shortDescription">
+                <p className={styles.shortDescription}>
                   {article.description.replace(/<\/?[^>]+(>|$)/g, "")}
                 </p>
                 {article.imageUrl && (
