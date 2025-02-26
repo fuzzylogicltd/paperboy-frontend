@@ -25,13 +25,14 @@ export default function SubscriptionList({
 
   return (
     <div className={styles.subscriptions}>
+      <h2>Feeds</h2>
       <ul role="list">
         {data.map((subscription) => (
           <li
             key={subscription.feed.id}
             onClick={() => handleSubscriptionClick(subscription)}
             className={
-              currentSubscription === subscription.feed.id
+              currentSubscription?.feed.id === subscription.feed.id
                 ? styles.selected
                 : ""
             }

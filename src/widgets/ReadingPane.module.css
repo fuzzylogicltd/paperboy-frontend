@@ -24,5 +24,23 @@
     padding: 2rem;
     max-width: 700px;
     margin-inline: auto;
+
+    .articleMeta {
+      h2 {
+        font-size: 1rem;
+        font-weight: normal;
+        color: var(--clr-gray800);
+      }
+    }
+
+    .articleContent {
+      h2 {
+        margin-block: 1rem 0.5rem;
+      }
+
+      p {
+        margin-block: 1rem;
+      }
+    }
   }
 }
