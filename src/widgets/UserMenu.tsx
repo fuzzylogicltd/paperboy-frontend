@@ -7,9 +7,10 @@ const handleLoguout = () => {
   location.reload();
 };
 
-const UserMenu = () => {
+const UserMenu = ({ feedName }) => {
   return (
     <div className={styles.userMenu}>
+      <div className={styles.feedName}>{feedName}</div>
       <DropdownMenu.Root>
         <DropdownMenu.Trigger asChild>
           <button className={styles.IconButton} aria-label="User menu">

@@ -6,20 +6,20 @@ import SubscriptionList from "../widgets/SubscriptionList";
 import styles from "./Reader.module.css";
 
 export default function ReaderPage() {
-  const [currentSubscriptionId, setCurrentSubscriptionId] = useState(null);
+  const [currentSubscription, setCurrentSubscription] = useState(null);
   const [currentArticleId, setCurrentArticleId] = useState(null);
 
-  console.log({ currentSubscriptionId }, { currentArticleId });
+  console.log({ currentSubscription }, { currentArticleId });
 
   return (
     <div className={styles.reader}>
       <div className={styles.navigationPanes}>
         <SubscriptionList
-          subscriptionId={currentSubscriptionId}
-          setSubscriptionId={setCurrentSubscriptionId}
+          currentSubscription={currentSubscription}
+          setCurrentSubscription={setCurrentSubscription}
         />
         <Articles
-          subscriptionId={currentSubscriptionId}
+          currentSubscription={currentSubscription}
           articleId={currentArticleId}
           setArticleId={setCurrentArticleId}
         />

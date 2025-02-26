@@ -4,11 +4,12 @@ import AddSubscription from "./AddSubscription";
 import styles from "./SubscriptionList.module.css";
 
 export default function SubscriptionList({
-  subscriptionId,
-  setSubscriptionId,
+  currentSubscription,
+  setCurrentSubscription,
 }) {
-  const { isPending, isError, data, error } =
-    useGetSubscriptions(subscriptionId);
+  const { isPending, isError, data, error } = useGetSubscriptions(
+    currentSubscription?.feed.id
+  );
 
   if (isPending) {
     return <span>Loading...</span>;
@@ -18,8 +19,8 @@ export default function SubscriptionList({
     return <span>Error: {error?.message}</span>;
   }
 
-  const handleSubscriptionClick = (feedId: number): void => {
-    setSubscriptionId(feedId);
+  const handleSubscriptionClick = (subscription): void => {
+    setCurrentSubscription(subscription);
   };
 
   return (
@@ -28,9 +29,11 @@ export default function SubscriptionList({
         {data.map((subscription) => (
           <li
             key={subscription.feed.id}
-            onClick={() => handleSubscriptionClick(subscription.feed.id)}
+            onClick={() => handleSubscriptionClick(subscription)}
             className={
-              subscriptionId === subscription.feed.id ? styles.selected : ""
+              currentSubscription === subscription.feed.id
+                ? styles.selected
+                : ""
             }
           >
             {subscription.customFeedName ?? subscription.feed.name}

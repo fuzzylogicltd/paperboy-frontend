@@ -4,7 +4,11 @@ import useGetArticles from "../hooks/useGetArticles";
 
 import styles from "./Articles.module.css";
 
-export default function Articles({ subscriptionId, articleId, setArticleId }) {
+export default function Articles({
+  currentSubscription,
+  articleId,
+  setArticleId,
+}) {
   const [pageCursor, setPageCursor] = useState(null);
   const [reads, setReads] = useState([]);
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -13,7 +17,7 @@ export default function Articles({ subscriptionId, articleId, setArticleId }) {
   const articlesDivRef = useRef(null);
 
   const { isPending, isError, data, error } = useGetArticles(
-    subscriptionId,
+    currentSubscription?.feed.id,
     pageCursor
   );
 
@@ -75,7 +79,7 @@ export default function Articles({ subscriptionId, articleId, setArticleId }) {
       setPageCursor(null);
       setScrollPosition(0);
     },
-    [subscriptionId]
+    [currentSubscription?.feed.id]
   );
 
   if (isPending) {
