@@ -80,10 +80,13 @@
     --clr-gray600: #999;
     --clr-gray800: #666;
     --clr-gray900: #444;
+    --clr-blackTrans: rgba(0, 0, 0, 0.5);
 
     --radius-sm: 3px;
     --radius-md: 5px;
     --radius-lg: 10px;
+
+    --shadow-1: 0px 4px 6px 2px rgba(0, 0, 0, 0.1);
 
     font-family: "Roboto", sans-serif;
     background-color: var(--clr-body);
@@ -94,8 +97,7 @@
   .button {
     display: block;
     width: fit-content;
-    margin-inline: auto;
-    padding: 0.5rem 4rem;
+    padding: 0.25rem 1rem;
     background-color: var(--clr-accent);
     color: #fff;
     text-decoration: none;
@@ -103,6 +105,10 @@
     border-radius: 3px;
     transition: padding ease-in-out 0.1s;
     border: 0;
+  }
+  .buttonMain {
+    margin-inline: auto;
+    padding: 0.5rem 4rem;
 
     &:hover {
       padding-inline: 5rem;

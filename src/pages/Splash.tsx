@@ -9,7 +9,7 @@ export default function SplashPage() {
         <h1>Paperboy Feed Reader</h1>
         <p>Welcome to this very nice feed reader</p>
         <p>
-          <Link to="/signin" className="button">
+          <Link to="/signin" className="button buttonMain">
             Sign in
           </Link>
         </p>

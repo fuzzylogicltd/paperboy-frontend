@@ -23,7 +23,7 @@ const TextField: React.FC<TextInputProps> = ({
           justifyContent: "space-between",
         }}
       >
-        <Form.Label>{labelText}</Form.Label>
+        <Form.Label className={styles.Label}>{labelText}</Form.Label>
         <Form.Message className={styles.Message} match="valueMissing">
           Please enter your {labelText.toLowerCase()}
         </Form.Message>

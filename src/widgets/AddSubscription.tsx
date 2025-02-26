@@ -38,7 +38,7 @@ const AddSubscription = () => {
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger asChild>
-        <button className={`${styles.Button} violet`}>+ Add</button>
+        <button className="button buttonMain">+ Add</button>
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className={styles.Overlay} />
@@ -54,13 +54,13 @@ const AddSubscription = () => {
             </Dialog.Description>
             <TextField
               fieldName="feedUrl"
-              labelText="URL"
+              labelText="Feed URL"
               isRequired={true}
               fieldType="text"
             />
             <TextField
               fieldName="feedName"
-              labelText="Name"
+              labelText="Feed Name"
               isRequired={true}
               fieldType="text"
             />
@@ -72,7 +72,7 @@ const AddSubscription = () => {
               }}
             >
               <Form.Submit asChild>
-                <button className={`${styles.Button} green`}>Add</button>
+                <button className="button">Add</button>
               </Form.Submit>
             </div>
             <Dialog.Close asChild>
