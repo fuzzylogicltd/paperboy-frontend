@@ -21,8 +21,6 @@ export default function Articles({
     pageCursor
   );
 
-  console.log("load articles");
-
   // TODO:
   // - Reduce number of component re-renders
   // - Try to avoid list flash when setting scroll pos (could be related to previous?)
@@ -37,7 +35,7 @@ export default function Articles({
             setPageCursor(data.pageCursor);
           }
         },
-        { threshold: 1.0 }
+        { threshold: 0.5 }
       );
 
       if (observerRef.current) {
