@@ -15,8 +15,6 @@ export default function LoginForm() {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
 
-    console.log({ formData });
-
     if (formData.get("password") !== formData.get("confirmPassword")) {
       setSignupMessage("Passwords don't match");
       return;
@@ -37,7 +35,6 @@ export default function LoginForm() {
       navigate("/signin");
     },
     onError: (res) => {
-      console.log({ res });
       setSignupMessage(
         `Error signing up: ${
           res.response.data.message ?? res.response.statusText

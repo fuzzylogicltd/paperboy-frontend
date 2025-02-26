@@ -4,7 +4,6 @@ import SignupForm from "../widgets/SignupForm";
 import styles from "./UserForm.module.css";
 
 export default function UserForm({ formType }) {
-  console.log({ formType });
   return (
     <div className={styles.login}>
       <div className={styles.wrapper}>

@@ -9,8 +9,6 @@ export default function ReaderPage() {
   const [currentSubscription, setCurrentSubscription] = useState(null);
   const [currentArticleId, setCurrentArticleId] = useState(null);
 
-  console.log({ currentSubscription }, { currentArticleId });
-
   return (
     <div className={styles.reader}>
       <div className={styles.navigationPanes}>

@@ -32,6 +32,7 @@ const AddSubscription = () => {
     },
     onError: (res) => {
       console.log("could not add feed", { res });
+      // TODO: show error to user
     },
   });
 
