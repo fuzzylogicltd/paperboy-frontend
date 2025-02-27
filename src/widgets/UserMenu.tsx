@@ -7,7 +7,11 @@ const handleLoguout = () => {
   location.reload();
 };
 
-const UserMenu = ({ feedName }) => {
+interface UserMenuProps {
+  feedName: string | undefined;
+}
+
+const UserMenu = ({ feedName }: UserMenuProps) => {
   return (
     <div className={styles.userMenu}>
       <div className={styles.feedName}>{feedName}</div>

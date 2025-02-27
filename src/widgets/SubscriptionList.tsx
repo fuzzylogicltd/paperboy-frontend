@@ -1,15 +1,19 @@
 import useGetSubscriptions from "../hooks/useGetSubscriptions";
 import AddSubscription from "./AddSubscription";
+import { ISubscription } from "../api/types";
 
 import styles from "./SubscriptionList.module.css";
+
+interface SubscriptionListProps {
+  currentSubscription: ISubscription | null;
+  setCurrentSubscription: Function;
+}
 
 export default function SubscriptionList({
   currentSubscription,
   setCurrentSubscription,
-}) {
-  const { isPending, isError, data, error } = useGetSubscriptions(
-    currentSubscription?.feed.id
-  );
+}: SubscriptionListProps) {
+  const { isPending, isError, data, error } = useGetSubscriptions();
 
   if (isPending) {
     return <span>Loading...</span>;
@@ -19,7 +23,7 @@ export default function SubscriptionList({
     return <span>Error: {error?.message}</span>;
   }
 
-  const handleSubscriptionClick = (subscription): void => {
+  const handleSubscriptionClick = (subscription: ISubscription): void => {
     setCurrentSubscription(subscription);
   };
 
@@ -27,7 +31,7 @@ export default function SubscriptionList({
     <div className={styles.subscriptions}>
       <h2>Feeds</h2>
       <ul role="list">
-        {data.map((subscription) => (
+        {data.map((subscription: ISubscription) => (
           <li
             key={subscription.feed.id}
             onClick={() => handleSubscriptionClick(subscription)}

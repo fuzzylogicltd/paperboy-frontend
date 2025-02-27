@@ -1,6 +1,5 @@
 import axios from "axios";
-import { GenericResponse, ILoginResponse } from "./types.ts";
-import { LoginInput } from "../widgets/SigninForm.tsx";
+import { ILoginInfo, ILoginResponse } from "./types.ts";
 import { API_URL } from "../env.ts";
 
 export const authApi = axios.create({
@@ -9,12 +8,12 @@ export const authApi = axios.create({
 
 authApi.defaults.headers.common["Content-Type"] = "application/json";
 
-export const loginUser = async (user: LoginInput) => {
+export const loginUser = async (user: ILoginInfo) => {
   const response = await authApi.post<ILoginResponse>("/signin", user);
   return response.data;
 };
 
-export const addUser = async (user: LoginInput) => {
+export const addUser = async (user: ILoginInfo) => {
   const response = await authApi.post<ILoginResponse>("/user", user);
   return response.data;
 };

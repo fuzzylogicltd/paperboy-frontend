@@ -5,14 +5,16 @@ import styles from "./ReadingPane.module.css";
 
 // TODO: Clear reading pane when selected feed is changed
 
-export default function ReadingPane({ articleId }) {
+interface ReadingPaneProps {
+  articleId: number | null;
+}
+
+export default function ReadingPane({ articleId }: ReadingPaneProps) {
   const { isPending, isError, data, error } = useGetArticle(articleId);
+
   return (
     <div className={styles.readingPane}>
-      <UserMenu
-        feedName={data?.article.feed.name}
-        articleUrl={data?.article.url}
-      />
+      <UserMenu feedName={data?.article.feed.name} />
       <div className={styles.wrapper}>
         {isPending && articleId && <span>Loading...</span>}
         {isError && <span>Error: {error?.message}</span>}

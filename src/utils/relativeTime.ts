@@ -18,7 +18,13 @@ moment.updateLocale("en", {
   },
 });
 
-export default function convertToRelativeTime(UTCTime) {
+export default function convertToRelativeTime(
+  UTCTime: string | undefined
+): string {
+  if (!UTCTime) {
+    return "";
+  }
+
   const relativeTime = moment(UTCTime).fromNow().replace(/\s/g, "");
 
   return relativeTime;

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { API_URL } from "../env.ts";
+import { IFeed } from "./types.ts";
 
 export const dataApi = axios.create({
   baseURL: API_URL,
@@ -15,7 +16,7 @@ export const fetchSubscriptions = async () => {
   return response.data.data;
 };
 
-export const addSubscription = async (feed) => {
+export const addSubscription = async (feed: IFeed) => {
   dataApi.defaults.headers.common["Content-Type"] = "application/json";
   dataApi.defaults.headers.common[
     "Authorization"
@@ -25,7 +26,10 @@ export const addSubscription = async (feed) => {
   return response.data.data;
 };
 
-export const fetchArticles = async (feedId: number, pageCursor: number) => {
+export const fetchArticles = async (
+  feedId: number | undefined,
+  pageCursor: number | null
+) => {
   dataApi.defaults.headers.common["Content-Type"] = "application/json";
   dataApi.defaults.headers.common[
     "Authorization"

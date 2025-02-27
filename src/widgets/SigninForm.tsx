@@ -1,11 +1,12 @@
-import { object, string, TypeOf } from "zod";
 import { useMutation } from "@tanstack/react-query";
 import { loginUser } from "../api/auth";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Form } from "radix-ui";
+import { AxiosError } from "axios";
 
 import TextField from "./forms/TextField";
+import { ILoginInfo } from "../api/types";
 
 export default function LoginForm() {
   const [loginMessage, setLoginMessage] = useState("");
@@ -23,7 +24,7 @@ export default function LoginForm() {
   };
 
   const mutation = useMutation({
-    mutationFn: (user: LoginInput) => {
+    mutationFn: (user: ILoginInfo) => {
       return loginUser(user);
     },
     onSuccess: (res) => {
@@ -31,10 +32,12 @@ export default function LoginForm() {
       localStorage.setItem("token", token);
       navigate("/");
     },
-    onError: (res) => {
+    onError: (res: AxiosError) => {
       setLoginMessage(
         `Error logging in: ${
-          res.response.data.message ?? res.response.statusText
+          // res.response?.data?.message ?? res.response?.statusText
+          // TODO: get TS to play nice here so we can have better messages
+          res.response?.statusText
         }`
       );
     },

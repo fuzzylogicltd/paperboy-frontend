@@ -1,23 +1,30 @@
 import { useEffect, useState, useRef } from "react";
 import convertToRelativeTime from "../utils/relativeTime";
 import useGetArticles from "../hooks/useGetArticles";
+import { ISubscription, IRead } from "../api/types";
 
 import styles from "./Articles.module.css";
+
+interface ArticlesProps {
+  currentSubscription: ISubscription | null;
+  articleId: number | null;
+  setArticleId: Function;
+}
 
 export default function Articles({
   currentSubscription,
   articleId,
   setArticleId,
-}) {
+}: ArticlesProps) {
   const [pageCursor, setPageCursor] = useState(null);
-  const [reads, setReads] = useState([]);
+  const [reads, setReads] = useState<IRead[]>([]);
   const [scrollPosition, setScrollPosition] = useState(0);
 
-  const observerRef = useRef(null);
-  const articlesDivRef = useRef(null);
+  const observerRef = useRef<HTMLDivElement | null>(null);
+  const articlesDivRef = useRef<HTMLDivElement | null>(null);
 
   const { isPending, isError, data, error } = useGetArticles(
-    currentSubscription?.feed.id,
+    currentSubscription?.feed?.id,
     pageCursor
   );
 
@@ -29,7 +36,11 @@ export default function Articles({
     function updateEndlessScrollOnDataChange() {
       const observer = new IntersectionObserver(
         (entries) => {
-          if (entries[0].isIntersecting && data?.pageCursor) {
+          if (
+            entries[0].isIntersecting &&
+            data?.pageCursor &&
+            articlesDivRef.current
+          ) {
             const scrollPos = articlesDivRef?.current.scrollTop;
             setScrollPosition(scrollPos);
             setPageCursor(data.pageCursor);
@@ -77,7 +88,7 @@ export default function Articles({
       setPageCursor(null);
       setScrollPosition(0);
     },
-    [currentSubscription?.feed.id]
+    [currentSubscription?.feed?.id]
   );
 
   if (isPending) {
@@ -107,7 +118,7 @@ export default function Articles({
                 <h3>{article.title}</h3>
                 <h4>{article.feed.name}</h4>
                 <p className={styles.shortDescription}>
-                  {article.description.replace(/<\/?[^>]+(>|$)/g, "")}
+                  {article.description?.replace(/<\/?[^>]+(>|$)/g, "")}
                 </p>
                 {article.imageUrl && (
                   <img src={article.imageUrl} className={styles.articleImage} />

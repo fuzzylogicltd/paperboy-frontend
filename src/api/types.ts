@@ -3,9 +3,9 @@ export interface IUser {
   email: string;
 }
 
-export interface GenericResponse {
-  status: string;
-  message: string;
+export interface ILoginInfo {
+  email: string;
+  password: string;
 }
 
 export interface ILoginResponse {
@@ -18,4 +18,30 @@ export interface IUserResponse {
   data: {
     user: IUser;
   };
+}
+
+export interface IFeed {
+  id?: number;
+  url: string;
+  name: string;
+}
+
+export interface ISubscription {
+  feedId: number;
+  feed: IFeed;
+  customFeedName: string | null;
+}
+
+export interface IArticle {
+  id: number;
+  title: string;
+  feed: IFeed;
+  description: string;
+  imageUrl?: string;
+  datePublished?: string;
+  author?: string;
+}
+
+export interface IRead {
+  article: IArticle;
 }

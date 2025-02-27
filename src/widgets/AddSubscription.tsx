@@ -1,6 +1,7 @@
 import { Dialog, Form } from "radix-ui";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { useMutation } from "@tanstack/react-query";
+import { IFeed } from "../api/types";
 
 import styles from "./AddSubscription.module.css";
 import TextField from "./forms/TextField";
@@ -14,7 +15,7 @@ const AddSubscription = () => {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
-    const feed = {
+    const feed: IFeed = {
       url: formData.get("feedUrl") as string,
       name: formData.get("feedName") as string,
     };
@@ -22,10 +23,10 @@ const AddSubscription = () => {
   };
 
   const mutation = useMutation({
-    mutationFn: (feed) => {
+    mutationFn: (feed: IFeed) => {
       return addSubscription(feed);
     },
-    onSuccess: (res) => {
+    onSuccess: () => {
       console.log("added feed");
       setOpen(false);
       // TODO: need to update Subscription list component when new feed is added

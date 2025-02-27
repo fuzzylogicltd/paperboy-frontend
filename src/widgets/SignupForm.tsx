@@ -3,10 +3,12 @@ import { addUser } from "../api/auth";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Form } from "radix-ui";
+import { AxiosError } from "axios";
 
 import TextField from "./forms/TextField";
+import { ILoginInfo } from "../api/types";
 
-export default function LoginForm() {
+export default function SignupForm() {
   const [signupMessage, setSignupMessage] = useState("");
 
   const navigate = useNavigate();
@@ -28,16 +30,18 @@ export default function LoginForm() {
   };
 
   const mutation = useMutation({
-    mutationFn: (user: LoginInput) => {
+    mutationFn: (user: ILoginInfo) => {
       return addUser(user);
     },
     onSuccess: () => {
       navigate("/signin");
     },
-    onError: (res) => {
+    onError: (res: AxiosError) => {
       setSignupMessage(
         `Error signing up: ${
-          res.response.data.message ?? res.response.statusText
+          // res.response?.data?.message ?? res.response?.statusText
+          // TODO: get TS to play nice here so we can have better messages
+          res.response?.statusText
         }`
       );
     },

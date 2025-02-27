@@ -3,7 +3,11 @@ import SignupForm from "../widgets/SignupForm";
 
 import styles from "./UserForm.module.css";
 
-export default function UserForm({ formType }) {
+interface UserFormProps {
+  formType: string;
+}
+
+export default function UserForm({ formType }: UserFormProps) {
   return (
     <div className={styles.login}>
       <div className={styles.wrapper}>
