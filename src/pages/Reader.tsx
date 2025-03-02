@@ -4,10 +4,11 @@ import Articles from "../widgets/Articles";
 import SubscriptionList from "../widgets/SubscriptionList";
 
 import styles from "./Reader.module.css";
+import { IArticle } from "../api/types";
 
 export default function ReaderPage() {
   const [currentSubscription, setCurrentSubscription] = useState(null);
-  const [currentArticleId, setCurrentArticleId] = useState(null);
+  const [currentArticle, setCurrentArticle] = useState<IArticle | null>(null);
 
   return (
     <div className={styles.reader}>
@@ -18,11 +19,11 @@ export default function ReaderPage() {
         />
         <Articles
           currentSubscription={currentSubscription}
-          articleId={currentArticleId}
-          setArticleId={setCurrentArticleId}
+          currentArticle={currentArticle}
+          setArticle={setCurrentArticle}
         />
       </div>
-      <ReadingPane articleId={currentArticleId} />
+      <ReadingPane articleId={currentArticle ? currentArticle.id : null} />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { API_URL } from "../env.ts";
-import { IFeed } from "./types.ts";
+import { IFeed, IRead } from "./types.ts";
 
 export const dataApi = axios.create({
   baseURL: API_URL,
@@ -60,5 +60,17 @@ export const fetchArticle = async (articleId: number) => {
 
   const response = await dataApi.get(`/api/articles/${articleId}`);
 
+  return response.data.data;
+};
+
+export const updateArticle = async (read: IRead) => {
+  dataApi.defaults.headers.common["Content-Type"] = "application/json";
+  dataApi.defaults.headers.common[
+    "Authorization"
+  ] = `Bearer ${localStorage.getItem("token")}`;
+
+  const response = await dataApi.put(`/api/articles/${read.article.id}`, {
+    starred: read.starred,
+  });
   return response.data.data;
 };

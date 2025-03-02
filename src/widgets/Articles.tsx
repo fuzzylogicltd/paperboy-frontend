@@ -1,20 +1,21 @@
 import { useEffect, useState, useRef } from "react";
 import convertToRelativeTime from "../utils/relativeTime";
 import useGetArticles from "../hooks/useGetArticles";
-import { ISubscription, IRead } from "../api/types";
+import { ISubscription, IRead, IArticle } from "../api/types";
 
 import styles from "./Articles.module.css";
+import useUpdateArticle from "../hooks/useUpdateArticle";
 
 interface ArticlesProps {
   currentSubscription: ISubscription | null;
-  articleId: number | null;
-  setArticleId: Function;
+  currentArticle: IArticle | null;
+  setArticle: Function;
 }
 
 export default function Articles({
   currentSubscription,
-  articleId,
-  setArticleId,
+  currentArticle,
+  setArticle,
 }: ArticlesProps) {
   const [pageCursor, setPageCursor] = useState(null);
   const [reads, setReads] = useState<IRead[]>([]);
@@ -27,6 +28,8 @@ export default function Articles({
     currentSubscription?.feed?.id,
     pageCursor
   );
+
+  const { mutateRead } = useUpdateArticle();
 
   // TODO:
   // - Reduce number of component re-renders
@@ -99,8 +102,15 @@ export default function Articles({
     return <span>Error: {error?.message}</span>;
   }
 
-  const handleArticleClick = (articleId: number) => {
-    setArticleId(articleId);
+  const handleArticleClick = (article: IArticle) => {
+    setArticle(article);
+
+    const read: IRead = {
+      starred: false,
+      article: article,
+    };
+
+    mutateRead.mutate(read);
   };
 
   return (
@@ -112,8 +122,10 @@ export default function Articles({
             return (
               <li
                 key={read.article.id}
-                onClick={() => handleArticleClick(article.id)}
-                className={articleId === article.id ? styles.selected : ""}
+                onClick={() => handleArticleClick(article)}
+                className={
+                  currentArticle?.id === article.id ? styles.selected : ""
+                }
               >
                 <h3>{article.title}</h3>
                 <h4>{article.feed.name}</h4>
