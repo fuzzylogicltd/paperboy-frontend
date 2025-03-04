@@ -29,24 +29,28 @@ export default function SubscriptionList({
 
   return (
     <div className={styles.subscriptions}>
-      <h2>Feeds</h2>
-      <ul role="list">
-        {data.map((subscription: ISubscription) => (
-          <li
-            key={subscription.feed.id}
-            onClick={() => handleSubscriptionClick(subscription)}
-            className={
-              currentSubscription?.feed.id === subscription.feed.id
-                ? styles.selected
-                : ""
-            }
-          >
-            {subscription.customFeedName ?? subscription.feed.name}
-          </li>
-        ))}
-      </ul>
-      <div className={styles.addSubscription}>
-        <AddSubscription />
+      <div className={styles.topSection}>
+        <h2>Feeds</h2>
+        <ul role="list">
+          {data.map((subscription: ISubscription) => (
+            <li
+              key={subscription.feed.id}
+              onClick={() => handleSubscriptionClick(subscription)}
+              className={
+                currentSubscription?.feed.id === subscription.feed.id
+                  ? styles.selected
+                  : ""
+              }
+            >
+              {subscription.customFeedName ?? subscription.feed.name}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className={styles.bottomSection}>
+        <div className={styles.addSubscription}>
+          <AddSubscription />
+        </div>
       </div>
     </div>
   );
