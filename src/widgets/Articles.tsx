@@ -1,7 +1,12 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, Dispatch, SetStateAction } from "react";
 import convertToRelativeTime from "../utils/relativeTime";
 import useGetArticles from "../hooks/useGetArticles";
-import { ISubscription, IRead, IArticle } from "../api/types";
+import {
+  ISubscription,
+  IRead,
+  IArticle,
+  ArticleFilterOptions,
+} from "../api/types";
 
 import styles from "./Articles.module.css";
 import useUpdateArticle from "../hooks/useUpdateArticle";
@@ -9,13 +14,15 @@ import useUpdateArticle from "../hooks/useUpdateArticle";
 interface ArticlesProps {
   currentSubscription: ISubscription | null;
   currentArticle: IArticle | null;
-  setArticle: Function;
+  setArticle: Dispatch<SetStateAction<IArticle>>;
+  articleFilter: ArticleFilterOptions;
 }
 
 export default function Articles({
   currentSubscription,
   currentArticle,
   setArticle,
+  articleFilter,
 }: ArticlesProps) {
   const [pageCursor, setPageCursor] = useState(null);
   const [reads, setReads] = useState<IRead[]>([]);
@@ -26,7 +33,8 @@ export default function Articles({
 
   const { isPending, isError, data, error } = useGetArticles(
     currentSubscription?.feed?.id,
-    pageCursor
+    pageCursor,
+    articleFilter
   );
 
   const { mutateRead } = useUpdateArticle();
@@ -66,6 +74,15 @@ export default function Articles({
   );
 
   useEffect(
+    function resetEndlessScrollPositionOnSubscriptionChange() {
+      setReads([]);
+      setPageCursor(null);
+      setScrollPosition(0);
+    },
+    [currentSubscription?.feed?.id, articleFilter]
+  );
+
+  useEffect(
     function updateReadsStateOnDataChange() {
       if (!data) {
         return;
@@ -85,23 +102,6 @@ export default function Articles({
     [reads]
   );
 
-  useEffect(
-    function resetEndlessScrollPositionOnSubscriptionChange() {
-      setReads([]);
-      setPageCursor(null);
-      setScrollPosition(0);
-    },
-    [currentSubscription?.feed?.id]
-  );
-
-  if (isPending) {
-    return <span>Loading...</span>;
-  }
-
-  if (isError) {
-    return <span>Error: {error?.message}</span>;
-  }
-
   const handleArticleClick = (article: IArticle) => {
     setArticle(article);
 
@@ -115,34 +115,42 @@ export default function Articles({
 
   return (
     <div className={styles.articles} ref={articlesDivRef}>
-      <ul role="list">
-        {reads.length > 0 &&
-          reads.map((read) => {
-            const article = read.article;
-            return (
-              <li
-                key={read.article.id}
-                onClick={() => handleArticleClick(article)}
-                className={
-                  currentArticle?.id === article.id ? styles.selected : ""
-                }
-              >
-                <h3>{article.title}</h3>
-                <h4>{article.feed.name}</h4>
-                <p className={styles.shortDescription}>
-                  {article.description?.replace(/<\/?[^>]+(>|$)/g, "")}
-                </p>
-                {article.imageUrl && (
-                  <img src={article.imageUrl} className={styles.articleImage} />
-                )}
-                <div className={styles.articleAge}>
-                  {convertToRelativeTime(article.datePublished)}
-                </div>
-              </li>
-            );
-          })}
-        <div ref={observerRef} className={styles.observer}></div>
-      </ul>
+      {isPending && <span>Loading...</span>}
+      {isError && <span>Error: {error?.message}</span>}
+
+      {reads && (
+        <ul role="list">
+          {reads.length > 0 &&
+            reads.map((read) => {
+              const article = read.article;
+              return (
+                <li
+                  key={read.article.id}
+                  onClick={() => handleArticleClick(article)}
+                  className={
+                    currentArticle?.id === article.id ? styles.selected : ""
+                  }
+                >
+                  <h3>{article.title}</h3>
+                  <h4>{article.feed.name}</h4>
+                  <p className={styles.shortDescription}>
+                    {article.description?.replace(/<\/?[^>]+(>|$)/g, "")}
+                  </p>
+                  {article.imageUrl && (
+                    <img
+                      src={article.imageUrl}
+                      className={styles.articleImage}
+                    />
+                  )}
+                  <div className={styles.articleAge}>
+                    {convertToRelativeTime(article.datePublished)}
+                  </div>
+                </li>
+              );
+            })}
+          <div ref={observerRef} className={styles.observer}></div>
+        </ul>
+      )}
     </div>
   );
 }

@@ -47,3 +47,5 @@ export interface IRead {
   starred: boolean;
   article: IArticle;
 }
+
+export type ArticleFilterOptions = "all" | "unread" | "read" | "starred";

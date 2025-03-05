@@ -28,12 +28,16 @@ export const addSubscription = async (feed: IFeed) => {
 
 export const fetchArticles = async (
   feedId: number | undefined,
-  pageCursor: number | null
+  pageCursor: number | null,
+  starred: boolean,
+  read: boolean | null
 ) => {
   dataApi.defaults.headers.common["Content-Type"] = "application/json";
   dataApi.defaults.headers.common[
     "Authorization"
   ] = `Bearer ${localStorage.getItem("token")}`;
+
+  const searchParams = new URLSearchParams();
 
   let fetchUrl = "";
 
@@ -44,7 +48,19 @@ export const fetchArticles = async (
   }
 
   if (pageCursor) {
-    fetchUrl = fetchUrl + `?pageCursor=${pageCursor}`;
+    searchParams.append("pageCursor", pageCursor.toString());
+  }
+
+  if (starred) {
+    searchParams.append("string", starred.toString());
+  }
+
+  if (read !== null) {
+    searchParams.append("read", read.toString());
+  }
+
+  if (searchParams) {
+    fetchUrl = fetchUrl + "?" + searchParams.toString();
   }
 
   const response = await dataApi.get(fetchUrl);
