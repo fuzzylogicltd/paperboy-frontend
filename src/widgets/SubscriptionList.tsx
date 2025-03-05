@@ -8,7 +8,7 @@ import ArticleFilter from "./ArticleFilter";
 
 interface SubscriptionListProps {
   currentSubscription: ISubscription | null;
-  setCurrentSubscription: Dispatch<SetStateAction<ISubscription>>;
+  setCurrentSubscription: Dispatch<SetStateAction<ISubscription | null>>;
   articleFilter: ArticleFilterOptions;
   setArticleFilter: Dispatch<SetStateAction<ArticleFilterOptions>>;
 }

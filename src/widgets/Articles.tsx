@@ -14,7 +14,7 @@ import useUpdateArticle from "../hooks/useUpdateArticle";
 interface ArticlesProps {
   currentSubscription: ISubscription | null;
   currentArticle: IArticle | null;
-  setArticle: Dispatch<SetStateAction<IArticle>>;
+  setArticle: Dispatch<SetStateAction<IArticle | null>>;
   articleFilter: ArticleFilterOptions;
 }
 

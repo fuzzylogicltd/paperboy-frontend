@@ -4,10 +4,11 @@ import Articles from "../widgets/Articles";
 import SubscriptionList from "../widgets/SubscriptionList";
 
 import styles from "./Reader.module.css";
-import { IArticle, ArticleFilterOptions } from "../api/types";
+import { IArticle, ArticleFilterOptions, ISubscription } from "../api/types";
 
 export default function ReaderPage() {
-  const [currentSubscription, setCurrentSubscription] = useState(null);
+  const [currentSubscription, setCurrentSubscription] =
+    useState<ISubscription | null>(null);
   const [currentArticle, setCurrentArticle] = useState<IArticle | null>(null);
   const [articleFilter, setArticleFilter] =
     useState<ArticleFilterOptions>("all");
