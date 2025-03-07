@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef, Dispatch, SetStateAction } from "react";
+import classNames from "classnames";
 import convertToRelativeTime from "../utils/relativeTime";
 import useGetArticles from "../hooks/useGetArticles";
 import {
@@ -123,13 +124,15 @@ export default function Articles({
           {reads.length > 0 &&
             reads.map((read) => {
               const article = read.article;
+              const articleClasses = classNames({
+                [styles.isRead]: read.readOn,
+                [styles.selected]: currentArticle?.id === article.id,
+              });
               return (
                 <li
                   key={read.article.id}
                   onClick={() => handleArticleClick(article)}
-                  className={
-                    currentArticle?.id === article.id ? styles.selected : ""
-                  }
+                  className={articleClasses}
                 >
                   <h3>{article.title}</h3>
                   <h4>{article.feed.name}</h4>
