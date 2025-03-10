@@ -45,6 +45,16 @@ export default function Articles({
   // - Try to avoid list flash when setting scroll pos (could be related to previous?)
 
   useEffect(
+    function resetStateOnSubscriptionOrFilterChange() {
+      setReads([]);
+      setPageCursor(null);
+      setScrollPosition(0);
+      setArticle(null);
+    },
+    [currentSubscription?.feed?.id, articleFilter]
+  );
+
+  useEffect(
     function updateEndlessScrollOnDataChange() {
       const observer = new IntersectionObserver(
         (entries) => {
@@ -75,21 +85,28 @@ export default function Articles({
   );
 
   useEffect(
-    function resetEndlessScrollPositionOnSubscriptionChange() {
-      setReads([]);
-      setPageCursor(null);
-      setScrollPosition(0);
-    },
-    [currentSubscription?.feed?.id, articleFilter]
-  );
-
-  useEffect(
     function updateReadsStateOnDataChange() {
       if (!data) {
         return;
       }
 
-      setReads((prevReads) => [...prevReads, ...data.data]);
+      setReads((prevReads) => {
+        const currentReads = [...prevReads];
+
+        data.data.forEach((read: IRead) => {
+          const readIndex = currentReads.findIndex(
+            (currentRead) => currentRead.article.id === read.article.id
+          );
+
+          if (readIndex !== -1) {
+            currentReads.splice(readIndex, 1, read);
+          } else {
+            currentReads.push(read);
+          }
+        });
+
+        return currentReads;
+      });
     },
     [data]
   );
@@ -106,8 +123,9 @@ export default function Articles({
   const handleArticleClick = (article: IArticle) => {
     setArticle(article);
 
+    // TODO: set article style to read at this point
+
     const read: IRead = {
-      starred: false,
       article: article,
     };
 
@@ -125,7 +143,7 @@ export default function Articles({
             reads.map((read) => {
               const article = read.article;
               const articleClasses = classNames({
-                [styles.isRead]: read.readOn,
+                [styles.isRead]: read.read,
                 [styles.selected]: currentArticle?.id === article.id,
               });
               return (
