@@ -30,6 +30,7 @@ export interface ISubscription {
   feedId: number;
   feed: IFeed;
   customFeedName: string | null;
+  unreadCount?: number;
 }
 
 export interface IArticle {
@@ -43,8 +44,8 @@ export interface IArticle {
 }
 
 export interface IRead {
-  readOn?: string;
-  starred: boolean;
+  read?: string;
+  starred?: boolean;
   article: IArticle;
 }
 

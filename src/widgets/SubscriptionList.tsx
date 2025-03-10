@@ -59,6 +59,9 @@ export default function SubscriptionList({
                   }
                 >
                   {subscription.customFeedName ?? subscription.feed.name}
+                  <span className={styles.articleCount}>
+                    {subscription.unreadCount}
+                  </span>
                 </li>
               ))}
             </ul>

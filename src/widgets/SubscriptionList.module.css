@@ -31,12 +31,22 @@
       border-radius: var(--radius-md);
       font-size: 0.9rem;
       cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+
+      .articleCount {
+        color: var(--clr-gray600);
+      }
     }
   }
 
   .selected {
     background-color: var(--clr-accent);
     color: #fff;
+
+    .articleCount {
+      color: var(--clr-gray400);
+    }
   }
 
   .addSubscription {
