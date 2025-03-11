@@ -1,5 +1,6 @@
 import useGetArticle from "../hooks/useGetArticle";
 import UserMenu from "./UserMenu";
+import { convertToHumanReadableDateAndTime } from "../utils/formatDateTime";
 
 import styles from "./ReadingPane.module.css";
 
@@ -24,7 +25,8 @@ export default function ReadingPane({ articleId }: ReadingPaneProps) {
             <h1>{data.article.title}</h1>
             <div className={styles.articleMeta}>
               <h2>
-                {data.article.datePublished && data.article.datePublished}
+                {data.article.datePublished &&
+                  convertToHumanReadableDateAndTime(data.article.datePublished)}
                 {data.article.author && ` by ${data.article.author}`} -{" "}
                 <a href={data.article.url} target="_blank">
                   Original

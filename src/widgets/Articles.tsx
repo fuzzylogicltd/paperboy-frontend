@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef, Dispatch, SetStateAction } from "react";
 import classNames from "classnames";
-import convertToRelativeTime from "../utils/relativeTime";
+import { convertToRelativeTime } from "../utils/formatDateTime";
 import useGetArticles from "../hooks/useGetArticles";
 import {
   ISubscription,
