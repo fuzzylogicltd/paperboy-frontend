@@ -111,22 +111,18 @@ export default function Articles({
     [data]
   );
 
-  useEffect(
-    function setScrollPositionOfArticleListOnArticleLoad() {
-      if (articlesDivRef.current) {
-        articlesDivRef.current.scrollTop = scrollPosition;
-      }
-    },
-    [reads]
-  );
-
-  const handleArticleClick = (article: IArticle) => {
+  const handleArticleClick = (article: IArticle): void => {
     setArticle(article);
 
-    // TODO: set article style to read at this point
+    const newReads: IRead[] = reads.map((read: IRead) => {
+      return read.article.id === article.id ? { ...read, read: true } : read;
+    });
+
+    setReads(newReads);
 
     const read: IRead = {
       article: article,
+      read: true,
     };
 
     mutateRead.mutate(read);

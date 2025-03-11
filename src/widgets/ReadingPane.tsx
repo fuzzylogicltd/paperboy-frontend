@@ -4,8 +4,6 @@ import { convertToHumanReadableDateAndTime } from "../utils/formatDateTime";
 
 import styles from "./ReadingPane.module.css";
 
-// TODO: Clear reading pane when selected feed is changed
-
 interface ReadingPaneProps {
   articleId: number | null;
 }
