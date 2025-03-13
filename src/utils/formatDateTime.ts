@@ -5,10 +5,10 @@ export function convertToRelativeTime(UTCTime: string | undefined): string {
     relativeTime: {
       future: "in %s",
       past: "%s ",
-      s: "s",
-      m: "m",
+      s: "a few seconds ago",
+      m: "a few minutes ago",
       mm: "%dm",
-      h: "h",
+      h: "an hour ago",
       hh: "%dh",
       d: "a day ago",
       dd: "%dd",

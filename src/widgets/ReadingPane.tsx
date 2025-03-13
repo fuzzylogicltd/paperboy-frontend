@@ -1,21 +1,24 @@
+import { IRead } from "../api/types";
 import useGetArticle from "../hooks/useGetArticle";
-import UserMenu from "./UserMenu";
+import ActionMenu from "./ActionMenu";
 import { convertToHumanReadableDateAndTime } from "../utils/formatDateTime";
 
 import styles from "./ReadingPane.module.css";
 
 interface ReadingPaneProps {
-  articleId: number | null;
+  read: IRead | null;
 }
 
-export default function ReadingPane({ articleId }: ReadingPaneProps) {
-  const { isPending, isError, data, error } = useGetArticle(articleId);
+export default function ReadingPane({ read }: ReadingPaneProps) {
+  const { isPending, isError, data, error } = useGetArticle(
+    read?.article.id ?? null
+  );
 
   return (
     <div className={styles.readingPane}>
-      <UserMenu feedName={data?.article.feed.name} />
+      <ActionMenu feedName={data?.article.feed.name} read={data} />
       <div className={styles.wrapper}>
-        {isPending && articleId && <span>Loading...</span>}
+        {isPending && read && <span>Loading...</span>}
         {isError && <span>Error: {error?.message}</span>}
 
         {data?.article && (

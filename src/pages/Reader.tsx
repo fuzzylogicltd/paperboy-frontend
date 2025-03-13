@@ -4,12 +4,12 @@ import Articles from "../widgets/Articles";
 import SubscriptionList from "../widgets/SubscriptionList";
 
 import styles from "./Reader.module.css";
-import { IArticle, ArticleFilterOptions, ISubscription } from "../api/types";
+import { ArticleFilterOptions, ISubscription, IRead } from "../api/types";
 
 export default function ReaderPage() {
   const [currentSubscription, setCurrentSubscription] =
     useState<ISubscription | null>(null);
-  const [currentArticle, setCurrentArticle] = useState<IArticle | null>(null);
+  const [currentRead, setCurrentRead] = useState<IRead | null>(null);
   const [articleFilter, setArticleFilter] =
     useState<ArticleFilterOptions>("all");
 
@@ -24,12 +24,12 @@ export default function ReaderPage() {
         />
         <Articles
           currentSubscription={currentSubscription}
-          currentArticle={currentArticle}
-          setArticle={setCurrentArticle}
+          currentRead={currentRead}
+          setRead={setCurrentRead}
           articleFilter={articleFilter}
         />
       </div>
-      <ReadingPane articleId={currentArticle ? currentArticle.id : null} />
+      <ReadingPane read={currentRead} />
     </div>
   );
 }

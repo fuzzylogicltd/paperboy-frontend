@@ -1,33 +1,29 @@
 import { useEffect, useState, useRef, Dispatch, SetStateAction } from "react";
 import classNames from "classnames";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { convertToRelativeTime } from "../utils/formatDateTime";
 import useGetArticles from "../hooks/useGetArticles";
-import {
-  ISubscription,
-  IRead,
-  IArticle,
-  ArticleFilterOptions,
-} from "../api/types";
+import { ISubscription, IRead, ArticleFilterOptions } from "../api/types";
 
 import styles from "./Articles.module.css";
 import useUpdateArticle from "../hooks/useUpdateArticle";
 
 interface ArticlesProps {
   currentSubscription: ISubscription | null;
-  currentArticle: IArticle | null;
-  setArticle: Dispatch<SetStateAction<IArticle | null>>;
+  currentRead: IRead | null;
+  setRead: Dispatch<SetStateAction<IRead | null>>;
   articleFilter: ArticleFilterOptions;
 }
 
 export default function Articles({
   currentSubscription,
-  currentArticle,
-  setArticle,
+  currentRead,
+  setRead,
   articleFilter,
 }: ArticlesProps) {
   const [pageCursor, setPageCursor] = useState(null);
   const [reads, setReads] = useState<IRead[]>([]);
-  const [scrollPosition, setScrollPosition] = useState(0);
 
   const observerRef = useRef<HTMLDivElement | null>(null);
   const articlesDivRef = useRef<HTMLDivElement | null>(null);
@@ -48,8 +44,7 @@ export default function Articles({
     function resetStateOnSubscriptionOrFilterChange() {
       setReads([]);
       setPageCursor(null);
-      setScrollPosition(0);
-      setArticle(null);
+      setRead(null);
     },
     [currentSubscription?.feed?.id, articleFilter]
   );
@@ -63,8 +58,6 @@ export default function Articles({
             data?.pageCursor &&
             articlesDivRef.current
           ) {
-            const scrollPos = articlesDivRef?.current.scrollTop;
-            setScrollPosition(scrollPos);
             setPageCursor(data.pageCursor);
           }
         },
@@ -111,20 +104,21 @@ export default function Articles({
     [data]
   );
 
-  const handleArticleClick = (article: IArticle): void => {
-    setArticle(article);
-
+  const handleArticleClick = (clickedRead: IRead): void => {
     const newReads: IRead[] = reads.map((read: IRead) => {
-      return read.article.id === article.id ? { ...read, read: true } : read;
+      return read.article.id === clickedRead.article.id
+        ? { ...read, read: true }
+        : read;
     });
 
     setReads(newReads);
 
     const read: IRead = {
-      article: article,
+      ...clickedRead,
       read: true,
     };
 
+    setRead(read);
     mutateRead.mutate(read);
   };
 
@@ -140,12 +134,12 @@ export default function Articles({
               const article = read.article;
               const articleClasses = classNames({
                 [styles.isRead]: read.read,
-                [styles.selected]: currentArticle?.id === article.id,
+                [styles.selected]: currentRead?.article.id === article.id,
               });
               return (
                 <li
                   key={read.article.id}
-                  onClick={() => handleArticleClick(article)}
+                  onClick={() => handleArticleClick(read)}
                   className={articleClasses}
                 >
                   <h3>{article.title}</h3>
@@ -161,6 +155,7 @@ export default function Articles({
                   )}
                   <div className={styles.articleAge}>
                     {convertToRelativeTime(article.datePublished)}
+                    {read.starred && <FontAwesomeIcon icon={faStar} />}
                   </div>
                 </li>
               );

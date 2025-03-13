@@ -1,14 +1,16 @@
-import { useMutation } from "@tanstack/react-query";
+import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { updateArticle } from "../api/data";
 import { IRead } from "../api/types";
 
 export default function useUpdateArticle() {
+  const queryClient = useQueryClient();
+
   const mutateRead = useMutation({
     mutationFn: (read: IRead) => {
       return updateArticle(read);
     },
-    onSuccess: () => {
-      // TODO: check if we need to do anything here, like invalidate RQ cache or something?
+    onSuccess: (data, read) => {
+      queryClient.setQueryData(["article", data.articleId], read);
     },
     onError: (res) => {
       console.log("could not update article status", { res });

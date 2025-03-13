@@ -114,4 +114,18 @@
       padding-inline: 5rem;
     }
   }
+
+  .iconButton {
+    height: 28px;
+    width: 28px;
+    background-color: transparent;
+    border: none;
+    border-radius: 50%;
+    transition: background-color ease-in 0.05s;
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--clr-gray400);
+    }
+  }
 }

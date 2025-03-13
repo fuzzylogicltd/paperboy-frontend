@@ -1,4 +1,4 @@
-.userMenu {
+.actionMenu {
   position: sticky;
   top: 0;
   width: 100%;
@@ -9,6 +9,11 @@
   background-color: var(--clr-body);
   border-bottom: 1px solid var(--clr-gray400);
   padding-inline: 1rem;
+
+  .actionButtons {
+    display: flex;
+    margin-top: 2px;
+  }
 }
 
 .feedName {
@@ -82,18 +87,6 @@
 
 .Arrow {
   fill: var(--clr-body);
-}
-
-.IconButton {
-  height: 26px;
-  width: 26px;
-  margin: 2px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--clr-gray800);
-  border-radius: 100%;
-  color: var(--clr-gray800);
 }
 
 @keyframes slideUpAndFade {

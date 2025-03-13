@@ -44,8 +44,8 @@ export interface IArticle {
 }
 
 export interface IRead {
-  read?: boolean;
-  starred?: boolean;
+  read: boolean;
+  starred: boolean;
   article: IArticle;
 }
 
