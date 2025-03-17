@@ -12,7 +12,7 @@ const articleFilterOptions = [
   { key: "all", label: "All" },
   { key: "unread", label: "Unread" },
   { key: "read", label: "Read" },
-  //   { key: "starred", label: "Starred" },
+  { key: "starred", label: "Starred" },
 ];
 
 const ArticleFilter = ({

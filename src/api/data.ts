@@ -52,7 +52,7 @@ export const fetchArticles = async (
   }
 
   if (starred) {
-    searchParams.append("string", starred.toString());
+    searchParams.append("starred", starred.toString());
   }
 
   if (read !== null) {
