@@ -11,7 +11,7 @@ interface ArticleFilterProps {
 const articleFilterOptions = [
   { key: "all", label: "All" },
   { key: "unread", label: "Unread" },
-  { key: "read", label: "Read" },
+  { key: "read", label: "Read History" },
   { key: "starred", label: "Starred" },
 ];
 
