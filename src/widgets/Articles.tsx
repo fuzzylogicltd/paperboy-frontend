@@ -8,6 +8,7 @@ import { ISubscription, IRead, ArticleFilterOptions } from "../api/types";
 
 import styles from "./Articles.module.css";
 import useUpdateArticle from "../hooks/useUpdateArticle";
+import LoadingSpinner from "./LoadingSpinner";
 
 interface ArticlesProps {
   currentSubscription: ISubscription | null;
@@ -124,42 +125,38 @@ export default function Articles({
 
   return (
     <div className={styles.articles} ref={articlesDivRef}>
-      {isPending && <span>Loading...</span>}
+      {isPending && <LoadingSpinner />}
       {isError && <span>Error: {error?.message}</span>}
-
-      {reads && (
+      {/* <LoadingSpinner /> */}
+      {reads?.length > 0 && (
         <ul role="list">
-          {reads.length > 0 &&
-            reads.map((read) => {
-              const article = read.article;
-              const articleClasses = classNames({
-                [styles.isRead]: read.read,
-                [styles.selected]: currentRead?.article.id === article.id,
-              });
-              return (
-                <li
-                  key={read.article.id}
-                  onClick={() => handleArticleClick(read)}
-                  className={articleClasses}
-                >
-                  <h3>{article.title}</h3>
-                  <h4>{article.feed.name}</h4>
-                  <p className={styles.shortDescription}>
-                    {article.description?.replace(/<\/?[^>]+(>|$)/g, "")}
-                  </p>
-                  {article.imageUrl && (
-                    <img
-                      src={article.imageUrl}
-                      className={styles.articleImage}
-                    />
-                  )}
-                  <div className={styles.articleAge}>
-                    {convertToRelativeTime(article.datePublished)}
-                    {read.starred && <FontAwesomeIcon icon={faStar} />}
-                  </div>
-                </li>
-              );
-            })}
+          {reads.map((read) => {
+            const article = read.article;
+            const articleClasses = classNames({
+              [styles.isRead]: read.read,
+              [styles.selected]: currentRead?.article.id === article.id,
+            });
+            return (
+              <li
+                key={read.article.id}
+                onClick={() => handleArticleClick(read)}
+                className={articleClasses}
+              >
+                <h3>{article.title}</h3>
+                <h4>{article.feed.name}</h4>
+                <p className={styles.shortDescription}>
+                  {article.description?.replace(/<\/?[^>]+(>|$)/g, "")}
+                </p>
+                {article.imageUrl && (
+                  <img src={article.imageUrl} className={styles.articleImage} />
+                )}
+                <div className={styles.articleAge}>
+                  {convertToRelativeTime(article.datePublished)}
+                  {read.starred && <FontAwesomeIcon icon={faStar} />}
+                </div>
+              </li>
+            );
+          })}
           <div ref={observerRef} className={styles.observer}></div>
         </ul>
       )}

@@ -5,6 +5,7 @@ import { ArticleFilterOptions, ISubscription } from "../api/types";
 
 import styles from "./SubscriptionList.module.css";
 import ArticleFilter from "./ArticleFilter";
+import LoadingSpinner from "./LoadingSpinner";
 
 interface SubscriptionListProps {
   currentSubscription: ISubscription | null;
@@ -30,7 +31,7 @@ export default function SubscriptionList({
   return (
     <div className={styles.subscriptions}>
       <div className={styles.topSection}>
-        {isPending && <span>Loading...</span>}
+        {isPending && <LoadingSpinner />}
         {isError && <span>Error: {error?.message}</span>}
 
         {data && (

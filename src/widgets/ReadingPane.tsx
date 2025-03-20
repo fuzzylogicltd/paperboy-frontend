@@ -4,6 +4,7 @@ import ActionMenu from "./ActionMenu";
 import { convertToHumanReadableDateAndTime } from "../utils/formatDateTime";
 
 import styles from "./ReadingPane.module.css";
+import LoadingSpinner from "./LoadingSpinner";
 
 interface ReadingPaneProps {
   read: IRead | null;
@@ -18,7 +19,7 @@ export default function ReadingPane({ read }: ReadingPaneProps) {
     <div className={styles.readingPane}>
       <ActionMenu feedName={data?.article.feed.name} read={data} />
       <div className={styles.wrapper}>
-        {isPending && read && <span>Loading...</span>}
+        {isPending && read && <LoadingSpinner />}
         {isError && <span>Error: {error?.message}</span>}
 
         {data?.article && (
